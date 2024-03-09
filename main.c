@@ -8,6 +8,11 @@
 
 
 void getDistributionArr(double distr_arr[]){
+    /* This function reads the letter distribution from the file 'distribution.txt' and places each values
+     * into its corresponding place in the distr_arr
+     * Arguments: distr_arr: array of doubles
+     * Return type: void
+     * */
     FILE* file = fopen("/Users/razvanbocra/CLionProjects/Lab2 Extra -OOP/distribution.txt", "r");
     char line[10];
     for(int i = 0; i < 26; i++){
@@ -18,6 +23,9 @@ void getDistributionArr(double distr_arr[]){
 }
 
 void computeNormalisedFreq(char text[], double letter_freq[]){
+    /* This function computes the number of times each letter from the English alphabet appears in a given string
+     * Arguments: text: array of chars, letter_freq: array of doubles
+     * Return Type: void*/
     int i = 0;
     char copy_text[1000];
     strcpy(copy_text, text);
@@ -32,6 +40,9 @@ void computeNormalisedFreq(char text[], double letter_freq[]){
 }
 
 double computeChiDist(double distr_arr[], double letter_freq[]){
+    /* This function computes the Chi Distance of a given whose letter frequency array is passed as a parameter
+     * Arguments: dist_arr: array of doubles, letter_freq: array of doubles
+     * Return Type: double*/
     double chi_dist = 0;
     for(int i = 0; i < 26; i++){
         chi_dist += ((distr_arr[i] - letter_freq[i]) * (distr_arr[i] - letter_freq[i]) / distr_arr[i]);
@@ -40,6 +51,9 @@ double computeChiDist(double distr_arr[], double letter_freq[]){
 }
 
 void encryptText(char text[], int key){
+    /* This function encrypts a given string using the Caesar's Cypher method, given a key
+     * Arguments: text: array of chars, key: integer
+     * Return type: void*/
     char temp_text[strlen(text)];
     for (int i = 0; i < strlen(text); i++){
         if(!strchr(" .?!,\n", text[i])){
@@ -55,6 +69,9 @@ void encryptText(char text[], int key){
 }
 
 void solveCypher(char text[], int size_of_text, char decrypted_text[]){
+    /* This function decrypts a given text using Frequency analysis
+     * Arguments: text: array of chars, size_of_text: integer, decrypted_text: array of chars
+     * Return type: void*/
     int key;
     double letter_freq[27]={} ,min_chi_dist, distr_arr[27];
     char new_array[size_of_text+2];
@@ -109,7 +126,6 @@ int main() {
                 break;
             case 2:
                 printf("\nGive the message:\n");
-//                getchar(); // Consume the newline character
                 fgets(text, 1000, stdin);
                 solveCypher(text, strlen(text), decrypted_text);
                 displayString(decrypted_text);
